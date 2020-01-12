@@ -12,7 +12,7 @@ const { getFromCacheAsync, storeInCache } = require('./util/cache').SINGLETON
 
 /**
  * SSH connection wrapper which uses cache for storing connections.
- * @param {any} domainOrIP The domain or IP address of server.
+ * @param {TSSHConnectionOptions} param0 SSH connection options.
  * @return {(domainOrIP: String) => Promise.<TNodeSSH>} SSH Session.
  */
 const SSHCache = ({ host, username, privateKey, passphrase }) => domainOrIP => {
