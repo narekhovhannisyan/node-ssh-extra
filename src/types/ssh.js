@@ -30,6 +30,7 @@
  * @property {String} host
  * @property {String} passphrase
  * @property {String} username
+ * @property {Number} connectionExpire
  */
 
 module.exports = {}
