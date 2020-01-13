@@ -40,8 +40,8 @@
     "url": "git+https://github.com/narekhovhannisyan/node-ssh-extra"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint ./src ./test --fix",
-    "lint-no-fix": "./node_modules/.bin/eslint ./test",
+    "lint": "./node_modules/.bin/eslint ./src --fix",
+    "lint-no-fix": "./node_modules/.bin/eslint ./src",
     "start": "node ./src/bin/www.js"
   }
 }
