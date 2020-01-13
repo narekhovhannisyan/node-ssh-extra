@@ -12,33 +12,20 @@ const { getFromCacheAsync, storeInCache } = require('./util/cache').SINGLETON
 
 /**
  * SSH connection wrapper which uses cache for storing connections.
- * @param {TSSHConnectionOptions} param0 SSH connection options.
+ * @param {TSSHConnectionOptions} sshOptions The connection options.
  * @return {(domainOrIP: String) => Promise.<TNodeSSH>} SSH Session.
  */
-const SSHCache = ({ host, username, privateKey, passphrase }) => domainOrIP => {
-  /**
-   * Creates options for further `SSH` connection.
-   * @param {String} domainOrIP The remote server domain.
-   * @return {TSSHConnectionOptions} `SSH` connection options.
-   * @private
-   */
-  const sshOptions = domainOrIP => ({
-    host,
-    username,
-    privateKey,
-    passphrase
-  })
-
+const SSHCache = (sshOptions) => (domainOrIP) => {
   /**
    * Provides new SSH connection if there is no such one, otherwise creates new one and stores in cache.
    * @param {String} domainOrIP The remote server domain.
    * @return {Promise.<any>} SSH connection.
    */
-  const connect = domainOrIP =>
+  const connect = (domainOrIP) =>
     getFromCacheAsync(domainOrIP).then(connection => {
       if (!connection) {
         return new NodeSSH()
-          .connect(sshOptions(domainOrIP))
+          .connect(sshOptions)
           .then(storeInCache(domainOrIP, CONNECTION_EXPIRE))
       }
 
