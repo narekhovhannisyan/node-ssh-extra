@@ -5,13 +5,14 @@
 
 [Node SSH](https://github.com/steelbrain/node-ssh) wrapper which helps to reuse existing connections.
 
-All connections are kept in cache and expire after given `connectionExpire` milliseconds.
+All connections are kept in cache for further usage. Cache eventually checks if `connectionExpire` expired.
+If it is, then it will be removed from cache.
 
 ## Usage
 
 ### For separate servers.
 ```js
-const NodeSSHExtra = require('node-ssh-extra')
+const { NodeSSHExtra } = require('node-ssh-extra')
 
 NodeSSHExtra({
   privateKey, // Private key path for ssh connection.
@@ -30,7 +31,9 @@ NodeSSHExtra({
 ### If all servers have the same connection credentials.
 
 ```js
-const NodeSSHExtra = require('node-ssh-extra').NodeSSHExtraForSameCredentials({
+const { NodeSSHExtraForSameCredentials } = require('node-ssh-extra')
+
+const NodeSSHExtra = NodeSSHExtraForSameCredentials({
   privateKey,
   host,
   passphrase,
