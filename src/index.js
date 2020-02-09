@@ -1,6 +1,6 @@
 const NodeSSH = require('node-ssh')
 
-const { getFromCacheAsync, storeInCache } = require('./util/cache').SINGLETON
+const { getValueByAsync, store } = require('./util/cache').SINGLETON
 
 /**
  * @typedef {import('./types/ssh').TNodeSSH} TNodeSSH
@@ -14,11 +14,11 @@ const { getFromCacheAsync, storeInCache } = require('./util/cache').SINGLETON
  * @return {Promise.<TNodeSSH>} SSH connection to desired remote.
  */
 const connect = ({ domainOrIP, connectionExpire, ...sshOptions }) =>
-  getFromCacheAsync(domainOrIP).then((connection) => {
+  getValueByAsync(domainOrIP).then((connection) => {
     if (!connection) {
       return new NodeSSH()
         .connect(sshOptions)
-        .then(storeInCache(domainOrIP, connectionExpire))
+        .then(store(domainOrIP, connectionExpire))
     }
 
     return connection
