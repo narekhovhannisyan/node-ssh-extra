@@ -1,14 +1,19 @@
-const storage = {}
+/**
+ * @typedef {import('../types/cache').TCacheMethods} TCacheMethods
+ */
 
 /**
  * Key-value based cache with expire feature.
+ * @returns {TCacheMethods}
  */
 const Cache = () => {
+  const storage = {}
+
   /**
    * Checks if the key is close to expire.
    * @private
    */
-  const timer = setInterval(() => {
+  setInterval(() => {
     const now = Date.now()
     for (const key in storage) {
       const { date, expire } = storage[key]
@@ -24,7 +29,7 @@ const Cache = () => {
    * @param {String} key The key for storing data.
    * @returns {any}
    */
-  const getFromCache = (key) => storage[key] ? storage[key].value : undefined
+  const getValueBy = (key) => storage[key] ? storage[key].value : undefined
 
   /**
    * Stores data with given `key`, `expire` and `value`
@@ -32,19 +37,14 @@ const Cache = () => {
    * @param {Number} [expire] The seconds to expire.
    * @returns {(any) => any}
    */
-  const storeInCache = (key, expire = Infinity) => (value) => {
+  const store = (key, expire = Infinity) => (value) => {
     storage[key] = {}
     storage[key].value = value
     storage[key].date = Date.now()
     storage[key].expire = expire
 
-    return getFromCache(key)
+    return getValueBy(key)
   }
-
-  /**
-   * Stops searching for values to expire.
-   */
-  const stopCache = () => clearInterval(timer)
 
   /**
    * Get stored keys.
@@ -54,15 +54,14 @@ const Cache = () => {
 
   /**
    * Gets all key value pairs from cache.
-   * @returns {Array} Array of key value pairs.
+   * @returns {any[]} Array of key value pairs.
    */
-  const getKeyValuePairs = () => getKeys().map((key) => storage[key].value)
+  const getKeyValuePairs = () => getKeys().map((key) => ({ key, value: storage[key].value }))
 
   return {
-    getFromCache,
-    getFromCacheAsync: (key) => Promise.resolve(getFromCache(key)),
-    storeInCache,
-    stopCache,
+    getValueBy,
+    getValueByAsync: (key) => Promise.resolve(getValueBy(key)),
+    store,
     getKeys,
     getKeyValuePairs
   }

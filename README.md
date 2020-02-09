@@ -10,7 +10,7 @@ All connections are kept in cache and expire after given `connectionExpire` mill
 ## Usage
 
 ### For separate servers.
-```
+```js
 const NodeSSHExtra = require('node-ssh-extra')
 
 NodeSSHExtra({
@@ -29,7 +29,7 @@ NodeSSHExtra({
 
 ### If all servers have the same connection credentials.
 
-```
+```js
 const NodeSSHExtra = require('node-ssh-extra').NodeSSHExtraForSameCredentials({
   privateKey,
   host,
@@ -43,7 +43,8 @@ NodeSSHExtra('mock-domain.com')
     // Do whatever you need to do here.
   })
 
-// And after if you need to do some other thing with new connection just call NodeSSHExtra the same way.
+// And after if you need to do some other thing on the same server, just call NodeSSHExtra the same way.
+// It will reuse the old opened connection if it's not expired, otherwise will create new connection.
 
 NodeSSHExtra('mock-domain.com')
   .then((connection) => {
