@@ -1,7 +1,7 @@
 {
   "name": "node-ssh-extra",
   "description": "Node ssh connection wrapper.",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "author": "Narek Hovhannisyan",
   "bugs": {
     "url": "https://github.com/narekhovhannisyan/node-ssh-extra/issues"
