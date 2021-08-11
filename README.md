@@ -30,3 +30,8 @@ NodeSSHExtra({
 // And after if you need to do some other thing on the same server, just call NodeSSHExtra the same way.
 // It will re-use the old opened connection if it's not expired, otherwise will create new connection.
 ```
+
+## Contribution
+
+For contributing please see [contribution rules](doc/CONTRIBUTING.md)
+
