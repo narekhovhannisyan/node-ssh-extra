@@ -11,7 +11,7 @@ const { getValueByAsync, store } = require('./util/cache').SINGLETON
 /**
  * SSH connection wrapper which uses cache for storing connections.
  * @param {TSSHConnectionOptions} param0
- * @return {Promise.<NodeSSH>} SSH Session.
+ * @return {() => Promise.<NodeSSH>} SSH Session.
  */
 const SSHCache = ({ domainOrIP, connectionExpire, ...sshOptions }) => {
   /**
