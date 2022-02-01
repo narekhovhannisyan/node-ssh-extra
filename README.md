@@ -7,7 +7,7 @@
 
 This module keeps all connections in cache for further usage. 
 
-Cache eventually checks if `connectionExpire` time is passed. If it is, then it removes connection from cache.
+Under the hood cache eventually checks if `connectionExpire` time is passed. If it is, then it removes connection from cache.
 
 ## Usage
 
@@ -15,7 +15,7 @@ Cache eventually checks if `connectionExpire` time is passed. If it is, then it 
 ```js
 const NodeSSHExtra = require('node-ssh-extra')
 
-NodeSSHExtra({
+const sshInstance = NodeSSHExtra({
   privateKey, // Private key path for ssh connection.
   host, // name for ssh connection.
   passphrase, // Passphrase for ssh connection.
@@ -23,11 +23,13 @@ NodeSSHExtra({
   connectionExpire, // Milliseconds to expire ssh connections.
   domainOrIP // Domain or IP address to connect.
 })
+
+sshInstance()
   .then((connection) => {
     // Do whatever you need to do here.
   })
 
-// And after if you need to do some other thing on the same server, just call NodeSSHExtra the same way.
+// And after if you need to do some other thing on the same server, just call `sshInstance` the same way.
 // It will re-use the old opened connection if it's not expired, otherwise will create new connection.
 ```
 
