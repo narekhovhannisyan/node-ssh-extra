@@ -29,7 +29,7 @@ const SSHCache = ({ domainOrIP, connectionExpire, ...sshOptions }) => {
       return connection
     })
 
-  return connect(domainOrIP)
+  return () => connect(domainOrIP)
 }
 
 module.exports = SSHCache
