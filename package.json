@@ -13,7 +13,7 @@
     }
   ],
   "dependencies": {
-    "node-ssh": "6.0.0"
+    "node-ssh": "13.1.0"
   },
   "devDependencies": {
     "eslint": "6.6.0",
